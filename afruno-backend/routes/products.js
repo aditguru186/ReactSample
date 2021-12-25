@@ -28,6 +28,16 @@ fetchProductsRouter.get("/getFurnitures", (req, res, next) => {
                "imageUrl":"https://www.ikea.com/in/en/images/products/taernoe-table-outdoor-red-light-brown-stained__0917464_ph168428_s5.jpg?f=xxxs"},
               ]);
    });
+
+   fetchProductsRouter.get("/getFurnituresByName", (req, res, next) => {
+    console.log('Searching via '+req.query.name);
+    res.json([{"productId":"100003",
+               "productName":"IKEA Tarno Table",
+               "price":"1900",
+               "imageUrl":"https://www.ikea.com/in/en/images/products/taernoe-table-outdoor-red-light-brown-stained__0917464_ph168428_s5.jpg?f=xxxs"},
+              ]);
+   });
+
   
 
 module.exports = fetchProductsRouter;
