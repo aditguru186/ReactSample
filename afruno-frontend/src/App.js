@@ -13,26 +13,32 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import axios from "axios";
+import { useEffect, useState } from "react";
 // import NavigationBarCommon from "./navigationBar/NavigationBar";
-const getFurnitureUrl = "localhost:8080/getFurnitures";
+// const getFurnitureUrl = "http://192.168.1.8:8080/getFurnitures";
+const getFurnitureUrl = "http://localhost:8080/getFurnitures";
 
-class FurnitureLists extends React.Component{
-  state = {
-    furnitureLists : []
-  }
-  componentDidMount(){
-    axios.get(getFurnitureUrl).then(res =>{
-      const furnitureData = res.data
-      this.setState({furnitureData})
-    })
-  }
-  render(){
-    console.log(this.state.furnitureLists)
-    return(
-
-      <div>this.state.furnitureLists</div>
-    )
-  }
+function FurnitureLists() {
+  const [furnitureList, setFurnitureList] = useState([]);
+  useEffect(() => {
+    axios
+      .get(getFurnitureUrl, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((res) => setFurnitureList(res.data));
+  }, []);
+  console.log(furnitureList);
+  return (
+    <div>
+      {furnitureList === null ? (
+        <p>Nothing TO show</p>
+      ) : (
+        furnitureList.map((r, k) => <p>{r.productName}</p>)
+      )}
+    </div>
+  );
 }
 function NavigationBarCommon() {
   return (
@@ -83,13 +89,13 @@ function CardsSetUp(props) {
   return (
     <div>
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={furnitureStuff.imageName} />
+        <Card.Img variant="top" src={furnitureStuff.imageUrl} />
         <Card.Body>
           <Card.Title>Furniture Name</Card.Title>
           <Card.Text>{furnitureStuff.furnitureDesc}</Card.Text>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>Furniture Item Name</ListGroupItem>
+          <ListGroupItem>Price : Rs {furnitureStuff.price}/-</ListGroupItem>
         </ListGroup>
         <Card.Body>
           <Card.Link href="#">Card Link</Card.Link>
@@ -105,13 +111,15 @@ function App() {
     furnitureName: "Sofa",
     imageName:
       "https://www.ikea.com/in/en/images/products/strandmon-wing-chair-skiftebo-yellow__0325450_pe517970_s5.jpg?f=xl",
-    furnitureDesc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+    furnitureDesc: "",
+    price: 10000,
   };
   return (
     <div>
       <h1>Afruno Welcomes you!</h1>
       <NavigationBarCommon />
       <CardsSetUp furnitureStuff={furnitureStuff} />
+      <FurnitureLists />
     </div>
   );
 }
