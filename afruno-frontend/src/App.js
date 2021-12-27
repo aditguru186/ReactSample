@@ -15,7 +15,7 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import axios from "axios";
 import { useEffect, useState } from "react";
 // import NavigationBarCommon from "./navigationBar/NavigationBar";
-// const getFurnitureUrl = "http://192.168.1.8:8080/getFurnitures";
+// const getFurnitureUrl = "http://192.168.0.102:8080/getFurnitures";
 const getFurnitureUrl = "http://localhost:8080/getFurnitures";
 
 function FurnitureLists() {
@@ -30,12 +30,26 @@ function FurnitureLists() {
       .then((res) => setFurnitureList(res.data));
   }, []);
   console.log(furnitureList);
+  var cardStyle = {
+    display: "inline-block",
+    margin: 20,
+    height: 400,
+    width: 300,
+    padding: 0,
+    WebkitFilter: "drop-shadow(100px 100px 50px #555)",
+    filter: "drop-shadow(5px 5px 50px #555)",
+  };
   return (
-    <div>
+    <div style={cardStyle}>
       {furnitureList === null ? (
         <p>Nothing TO show</p>
       ) : (
-        furnitureList.map((r, k) => <p>{r.productName}</p>)
+        furnitureList.map((furnitureData, iterator) => (
+          <CardsSetUp
+            furnitureData={furnitureData}
+            key={furnitureData.productId}
+          />
+        ))
       )}
     </div>
   );
@@ -85,21 +99,20 @@ function NavigationBarCommon() {
   );
 }
 function CardsSetUp(props) {
-  var furnitureStuff = props.furnitureStuff;
+  var furnitureData = props.furnitureData;
   return (
-    <div>
+    <div style={{ display: "inline-block" }}>
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={furnitureStuff.imageUrl} />
+        <Card.Img variant="top" src={furnitureData.imageUrl} />
         <Card.Body>
-          <Card.Title>Furniture Name</Card.Title>
-          <Card.Text>{furnitureStuff.furnitureDesc}</Card.Text>
+          <Card.Title>{furnitureData.productName}</Card.Title>
         </Card.Body>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>Price : Rs {furnitureStuff.price}/-</ListGroupItem>
+          <ListGroupItem>Price : Rs. {furnitureData.price}/-</ListGroupItem>
         </ListGroup>
         <Card.Body>
-          <Card.Link href="#">Card Link</Card.Link>
-          <Card.Link href="#">Another Link</Card.Link>
+          <Card.Link href="#">Buy Now</Card.Link>
+          <Card.Link href="#">Add To Cart</Card.Link>
         </Card.Body>
       </Card>
     </div>
@@ -118,7 +131,7 @@ function App() {
     <div>
       <h1>Afruno Welcomes you!</h1>
       <NavigationBarCommon />
-      <CardsSetUp furnitureStuff={furnitureStuff} />
+      {/* <CardsSetUp furnitureStuff={furnitureStuff} /> */}
       <FurnitureLists />
     </div>
   );

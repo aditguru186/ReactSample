@@ -15,6 +15,7 @@ fetchProductsRouter.get(
         price: "7690",
         imageUrl:
           "https://www.ikea.com/in/en/images/products/micke-desk-white__0851508_pe565256_s5.jpg?f=xxs",
+        productDescription:"Best in the business"
       },
       {
         productId: "100002",
@@ -31,21 +32,21 @@ fetchProductsRouter.get(
           "https://www.ikea.com/in/en/images/products/linnmon-adils-table-white__0737165_pe740925_s5.jpg?f=xxs",
       },
       {
-        productId: "100003",
+        productId: "100004",
         productName: "IKEA SMASTAD Study Desk",
         price: "3600",
         imageUrl:
           "https://www.ikea.com/in/en/images/products/smastad-bench-white__0848801_pe779149_s5.jpg?f=xxs",
       },
       {
-        productId: "100003",
+        productId: "100005",
         productName: "IKEA SMASTAD Study Desk",
         price: "9900",
         imageUrl:
           "https://www.ikea.com/in/en/images/products/alex-desk-white__0977658_pe813725_s5.jpg?f=xxs",
       },
       {
-        productId: "100003",
+        productId: "100006",
         productName: "IKEA Tarno Table",
         price: "1900",
         imageUrl:

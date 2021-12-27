@@ -1,0 +1,3 @@
+* Align inline block for all the rendered cards
+* Decouple all components into separate files
+* Mongo DB integration for updating details.
