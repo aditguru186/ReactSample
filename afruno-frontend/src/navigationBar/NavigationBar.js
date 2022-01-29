@@ -14,7 +14,7 @@ function NavigationBarCommon() {
     <div>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+          <Navbar.Brand href="#">Afruno</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -23,12 +23,16 @@ function NavigationBarCommon() {
               navbarScroll
             >
               <Nav.Link href="#action1">Home</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
+              <Nav.Link href="#action2">About</Nav.Link>
+              <NavDropdown
+                title="Filter by Furnitures"
+                id="navbarScrollingDropdown"
+              >
+                <NavDropdown.Item href="/#/Action2">All Items</NavDropdown.Item>
+                <NavDropdown.Item href="#action3">Tables</NavDropdown.Item>
+                <NavDropdown.Item href="#action4">Sofas</NavDropdown.Item>
+                <NavDropdown.Item href="#action3">Chair</NavDropdown.Item>
+                <NavDropdown.Item href="#action3">Bed</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action5">
                   Something else here

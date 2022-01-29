@@ -65,7 +65,6 @@ function CardsSetUp(props) {
 function App() {
   return (
     <div>
-      <h1>Afruno Welcomes you!</h1>
       <NavigationBarCommon />
       {/* <CardsSetUp furnitureStuff={furnitureStuff} /> */}
       <FurnitureLists />
