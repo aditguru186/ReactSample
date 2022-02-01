@@ -2,6 +2,8 @@ var express = require("express");
 var fetchProductsRouter = express.Router();
 var cors = require("cors");
 var url = require("url");
+const mongoose = require("mongoose");
+
 var corsOptions = {
   origin: "http://localhost:8080/getFurnitures",
 };
@@ -79,3 +81,9 @@ fetchProductsRouter.get("/getFurnituresByName", (req, res, next) => {
 });
 
 module.exports = fetchProductsRouter;
+
+var urlToMongoDB =
+  "mongodb+srv://aditguru186:4D15o12l12l%26149@cluster0.lmoqi.mongodb.net/AfrunoDB1?retryWrites=true&w=majority";
+mongoose.connect(urlToMongoDB, () => {
+  console.log("connceted to mongoDB successfully");
+});

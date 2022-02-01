@@ -66,7 +66,6 @@ function App() {
   return (
     <div>
       <NavigationBarCommon />
-      {/* <CardsSetUp furnitureStuff={furnitureStuff} /> */}
       <FurnitureLists />
     </div>
   );
