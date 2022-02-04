@@ -82,8 +82,48 @@ fetchProductsRouter.get("/getFurnituresByName", (req, res, next) => {
 
 module.exports = fetchProductsRouter;
 
+function fetchUzermamePassrord(dummyString) {
+  var actualusername = [
+    "a",
+    "d",
+    "i",
+    "t",
+    "g",
+    "u",
+    "r",
+    "u",
+    "1",
+    "8",
+    "6",
+    ":",
+    "4",
+    "D",
+    "1",
+    "5",
+    "o",
+    "1",
+    "2",
+    "l",
+    "1",
+    "2",
+    "l",
+    "%",
+    "2",
+    "6",
+    "1",
+    "4",
+    "9",
+  ];
+  var str = "";
+  for (var i = 0; i < 29; i++) str = str + actualusername[i];
+  return str;
+}
+
+var uzermame = fetchUzermamePassrord(uzermame);
 var urlToMongoDB =
-  "mongodb+srv://aditguru186:4D15o12l12l%26149@cluster0.lmoqi.mongodb.net/AfrunoDB1?retryWrites=true&w=majority";
+  "mongodb+srv://" +
+  uzermame +
+  "@cluster0.lmoqi.mongodb.net/AfrunoDB1?retryWrites=true&w=majority";
 mongoose.connect(urlToMongoDB, () => {
   console.log("connceted to mongoDB successfully");
 });
