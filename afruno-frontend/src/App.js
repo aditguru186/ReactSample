@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import NavigationBarCommon from "./navigationBar/NavigationBar";
 
 // const getFurnitureUrl = "http://192.168.0.102:8080/getFurnitures";
+//http://localhost:8080/getFurnituresByName&name=Table
+// const getFurnitureUrl = "http://192.168.0.185/getFurnituresByName&name=Table";
 const getFurnitureUrl = "http://localhost:8080/getFurnitures";
 
 function FurnitureLists() {
