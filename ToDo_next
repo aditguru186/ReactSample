@@ -1,5 +1,4 @@
 * Decouple all components into separate files
-* Mongo DB integration for updating details.
 * Link the navBar buttons to proper pages
 * Filter the home page with the categorical furnitures
 * Use the other api for displaying the specific category of stuff

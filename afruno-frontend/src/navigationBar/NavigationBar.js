@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -8,6 +8,33 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+
+const triggerSearch = (searchTextValue) => {
+  console.log("Search Text Value = " + searchTextValue);
+};
+
+function SearchBar() {
+  const [searchText, setsearchText] = useState("Search");
+  return (
+    <Form className="d-flex">
+      <FormControl
+        type="search"
+        placeholder={searchText}
+        className="me-2"
+        aria-label={searchText}
+        onChange={(e) => {
+          setsearchText(e.target.value);
+        }}
+      />
+      <Button
+        variant="outline-success"
+        onClick={() => triggerSearch(searchText)}
+      >
+        Search
+      </Button>
+    </Form>
+  );
+}
 
 function NavigationBarCommon() {
   return (
@@ -42,15 +69,7 @@ function NavigationBarCommon() {
                 Link
               </Nav.Link>
             </Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
+            <SearchBar />
           </Navbar.Collapse>
         </Container>
       </Navbar>
