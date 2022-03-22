@@ -13,12 +13,28 @@ import NavigationBarCommon from "./navigationBar/NavigationBar";
 //http://localhost:8080/getFurnituresByName&name=Table
 // const getFurnitureUrl = "http://192.168.0.185/getFurnituresByName&name=Table";
 const getFurnitureUrl = "http://localhost:8080/getFurnitures";
+const getFurnitureUrlByName = "http://localhost:8080/getFurnituresByName&name=";
+const furnitureTypeList = ["table", "chair", "sofa"];
 
-function FurnitureLists() {
+function FurnitureLists(props) {
+  var searchUrl = "";
+  var filterFlag = false;
+  console.log("XXXXXXXXXXX");
+  if (
+    props !== null &&
+    props.filterName !== null &&
+    props.filterName !== undefined &&
+    furnitureTypeList.includes(props.filterName.toLowerCase())
+  ) {
+    console.log("Props Name : " + props.filterName);
+    searchUrl = getFurnitureUrlByName + props.filterName;
+    filterFlag = true;
+  } else searchUrl = getFurnitureUrl;
   const [furnitureList, setFurnitureList] = useState([]);
+  console.log("Search URL : " + searchUrl);
   useEffect(() => {
     axios
-      .get(getFurnitureUrl, {
+      .get(searchUrl, {
         headers: {
           "Access-Control-Allow-Origin": "*",
         },
