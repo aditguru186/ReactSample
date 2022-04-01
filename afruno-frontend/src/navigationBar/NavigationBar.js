@@ -10,25 +10,20 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import FurnitureLists from "../App";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRecoilState } from "react";
 
-const homeSearch = "http://localhost:3002";
-const triggerSearch = (searchTextValue) => {
-  console.log("Search Text Value = " + searchTextValue);
-  // <FurnitureLists filterName={searchTextValue} />;
-  // var searchUrl =
-  //   "http://localhost:8080/getFurnituresByName&name=" + searchTextValue;
-  // axios
-  //   .get(searchUrl, {
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //   })
-  //   .then((res) => setFurnitureList(res.data));
-};
-
+const homeSearch = "http://localhost:3000";
+const homeSearchByFilterURL =
+  "https://localhost:3000/getFurnituresByName&name=";
+var filterName = "";
 function SearchBar() {
   const [searchText, setsearchText] = useState("Search");
+  const [filterName1, setfilterName1] = useRecoilState(filterNameState);
+  const triggerSearch = (searchTextValue) => {
+    console.log("Search Text Value = " + searchTextValue.toLowerCase());
+    setsearchText(searchTextValue.toLowerCase());
+    filterName = searchText;
+  };
   return (
     <Form className="d-flex">
       <FormControl
@@ -36,9 +31,9 @@ function SearchBar() {
         placeholder={searchText}
         className="me-2"
         aria-label={searchText}
-        onChange={(e) => {
-          setsearchText(e.target.value);
-        }}
+        // onChange={(e) => {
+        //   setsearchText(e.target.value);
+        // }}
       />
       <Button
         variant="outline-success"
@@ -87,6 +82,7 @@ function NavigationBarCommon() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      {/* <FurnitureLists filterName={filterName} /> */}
     </div>
   );
 }

@@ -19,7 +19,6 @@ const furnitureTypeList = ["table", "chair", "sofa"];
 function FurnitureLists(props) {
   var searchUrl = "";
   var filterFlag = false;
-  console.log("XXXXXXXXXXX");
   if (
     props !== null &&
     props.filterName !== null &&
