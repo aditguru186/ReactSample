@@ -19,10 +19,14 @@ var filterName = "";
 function SearchBar() {
   const [searchText, setsearchText] = useState("Search");
   const [filterName1, setfilterName1] = useRecoilState(filterNameState);
+
   const triggerSearch = (searchTextValue) => {
     console.log("Search Text Value = " + searchTextValue.toLowerCase());
     setsearchText(searchTextValue.toLowerCase());
     filterName = searchText;
+    setfilterName1((textValue) => {
+      filterName1 = textValue;
+    });
   };
   return (
     <Form className="d-flex">
