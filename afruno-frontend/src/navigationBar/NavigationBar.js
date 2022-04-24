@@ -13,22 +13,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const homeSearch = "http://localhost:3002";
-const triggerSearch = (searchTextValue) => {
-  console.log("Search Text Value = " + searchTextValue);
-  // <FurnitureLists filterName={searchTextValue} />;
-  // var searchUrl =
-  //   "http://localhost:8080/getFurnituresByName&name=" + searchTextValue;
-  // axios
-  //   .get(searchUrl, {
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //   })
-  //   .then((res) => setFurnitureList(res.data));
-};
 
-function SearchBar() {
+function SearchBar(props) {
+  var handleSearch = props.handler;
   const [searchText, setsearchText] = useState("Search");
+  const triggerSearch = (searchTextValue) => {
+    console.log("Search Text Value = " + searchTextValue);
+    handleSearch(searchText);
+  };
   return (
     <Form className="d-flex">
       <FormControl
@@ -50,7 +42,8 @@ function SearchBar() {
   );
 }
 
-function NavigationBarCommon() {
+function NavigationBarCommon(props) {
+  var handler = props.handler;
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -83,7 +76,7 @@ function NavigationBarCommon() {
                 Link
               </Nav.Link>
             </Nav>
-            <SearchBar />
+            <SearchBar handler={handler} />
           </Navbar.Collapse>
         </Container>
       </Navbar>

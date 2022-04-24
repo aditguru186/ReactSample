@@ -14,7 +14,7 @@ import NavigationBarCommon from "./navigationBar/NavigationBar";
 // const getFurnitureUrl = "http://192.168.0.185/getFurnituresByName&name=Table";
 const getFurnitureUrl = "http://localhost:8080/getFurnitures";
 const getFurnitureUrlByName = "http://localhost:8080/getFurnituresByName&name=";
-const furnitureTypeList = ["table", "chair", "sofa"];
+const furnitureTypeList = ["table", "chair", "sofa", "desk"];
 
 function FurnitureLists(props) {
   var searchUrl = "";
@@ -22,12 +22,12 @@ function FurnitureLists(props) {
   console.log("XXXXXXXXXXX");
   if (
     props !== null &&
-    props.filterName !== null &&
-    props.filterName !== undefined &&
-    furnitureTypeList.includes(props.filterName.toLowerCase())
+    props.filterText !== null &&
+    props.filterText !== undefined &&
+    furnitureTypeList.includes(props.filterText.toLowerCase())
   ) {
-    console.log("Props Name : " + props.filterName);
-    searchUrl = getFurnitureUrlByName + props.filterName;
+    console.log("Props Name : " + props.filterText);
+    searchUrl = getFurnitureUrlByName + props.filterText;
     filterFlag = true;
   } else searchUrl = getFurnitureUrl;
   const [furnitureList, setFurnitureList] = useState([]);
@@ -80,13 +80,25 @@ function CardsSetUp(props) {
     </div>
   );
 }
-function App() {
+function Populator(props) {
+  var valuePopulator = props.value;
+  return <h3>Value to be Searched : {valuePopulator}</h3>;
+}
+function MainRenderer() {
+  const [filterText, setFilterText] = useState("");
+  function handler(newText) {
+    setFilterText(newText);
+  }
   return (
     <div>
-      <NavigationBarCommon />
-      <FurnitureLists />
+      <NavigationBarCommon handler={handler} />
+      <Populator value={filterText} />
+      <FurnitureLists filterText={filterText} />
     </div>
   );
+}
+function App() {
+  return <MainRenderer />;
 }
 
 export default App;

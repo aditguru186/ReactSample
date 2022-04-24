@@ -21,19 +21,23 @@ fetchProductsRouter.get(
   }
 );
 var corsOptions = {
-  origin: "https://192.168.0.185/getFurnitures",
+  origin: "https://192.168.0.185/getFurnituresByName",
 };
-fetchProductsRouter.get("/getFurnituresByName", (req, res, next) => {
-  console.log("Searching via " + req.query.name);
-  var querryName = "" + req.query.name;
-  var currentCategoryFurniture = [];
-  for (const furn of documentItems) {
-    if (furn.category === querryName) currentCategoryFurniture.push(furn);
+fetchProductsRouter.get(
+  "/getFurnituresByName",
+  cors(corsOptions),
+  (req, res, next) => {
+    console.log("Searching via " + req.query.name);
+    var querryName = "" + req.query.name;
+    var currentCategoryFurniture = [];
+    for (const furn of documentItems) {
+      if (furn.category === querryName) currentCategoryFurniture.push(furn);
+    }
+    if (currentCategoryFurniture === null)
+      currentCategoryFurniture = documentItems;
+    res.json(currentCategoryFurniture);
   }
-  if (currentCategoryFurniture === null)
-    currentCategoryFurniture = documentItems;
-  res.json(currentCategoryFurniture);
-});
+);
 
 module.exports = fetchProductsRouter;
 
