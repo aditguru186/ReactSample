@@ -8,6 +8,15 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import NavigationBarCommon from "./navigationBar/NavigationBar";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
+var nvBarModule = import("./navigationBar/NavigationBar");
+// var nvBarModule = require("./navigationBar/NavigationBar");
 
 // const getFurnitureUrl = "http://192.168.0.102:8080/getFurnitures";
 //http://localhost:8080/getFurnituresByName&name=Table
@@ -18,17 +27,65 @@ const furnitureTypeList = ["table", "chair", "sofa"];
 
 function FurnitureLists(props) {
   var searchUrl = "";
-  var filterFlag = false;
-  if (
-    props !== null &&
-    props.filterName !== null &&
-    props.filterName !== undefined &&
-    furnitureTypeList.includes(props.filterName.toLowerCase())
-  ) {
-    console.log("Props Name : " + props.filterName);
-    searchUrl = getFurnitureUrlByName + props.filterName;
-    filterFlag = true;
-  } else searchUrl = getFurnitureUrl;
+  // var filterFlag = false;
+  // if (
+  //   props !== null &&
+  //   props.filterName !== null &&
+  //   props.filterName !== undefined &&
+  //   furnitureTypeList.includes(props.filterName.toLowerCase())
+  // ) {
+  //   console.log("Props Name : " + props.filterName);
+  //   searchUrl = getFurnitureUrlByName + props.filterName;
+  //   filterFlag = true;
+  // } else searchUrl = getFurnitureUrl;
+  let recoilTextSearchAtom = null;
+  if (recoilTextSearchAtom === null) {
+    let recoilObj = nvBarModule
+      .then((module) => {
+        return module["recoilTextSearchAtom"];
+      })
+      .then((mod) => {
+        console.log('MOD with Key ["key"] value : ' + mod["key"]);
+        console.log("returning atom object");
+        return mod;
+      });
+    recoilTextSearchAtom = recoilObj;
+  }
+  console.log("############################");
+  console.log("Key : Value for navBarModule : \n\n\n");
+  console.log("############################");
+  for (const [key, value] of Object.entries(nvBarModule)) {
+    console.log("Key : " + key + " Value : " + value);
+  }
+  console.log("############################");
+  console.log("Key : Value for navBarModule : \n\n\n");
+  console.log("############################");
+  for (const [key, value] of Object.entries(recoilTextSearchAtom)) {
+    console.log("Key : " + key + " Value : " + value);
+  }
+  console.log("############################");
+  // console.log("Recoil Text Search Atom  : " + recoilTextSearchAtom);
+  const recoilTextSearchSelector = selector({
+    key: "recoilTextSearchAtomKey",
+    get: ({ get }) => {
+      // console.log("Search Atom : " + get(recoilTextSearchAtom));
+      if (recoilTextSearchAtom !== undefined && recoilTextSearchAtom !== null) {
+        // console.log("OOOOLLAAAAlaleoooooo  " + recoilTextSearchAtom);
+        // for (const [key, value] of Object.entries(recoilTextSearchAtom)) {
+        //   console.log("Key : " + key + " Value : " + value);
+        // }
+        console.log("OOOOLLAAAAlaleoooooo  " + get(recoilTextSearchAtom));
+        const filterText = get(recoilTextSearchAtom);
+        return filterText;
+      } else {
+      }
+    },
+  });
+  const filterName = useRecoilValue(recoilTextSearchSelector);
+  if (filterName === "" || filterName === undefined)
+    searchUrl = getFurnitureUrl;
+  else searchUrl = getFurnitureUrlByName + filterName;
+  console.log("Value received from recoil state is " + filterName);
   const [furnitureList, setFurnitureList] = useState([]);
   console.log("Search URL : " + searchUrl);
   useEffect(() => {
@@ -82,8 +139,10 @@ function CardsSetUp(props) {
 function App() {
   return (
     <div>
-      <NavigationBarCommon />
-      <FurnitureLists />
+      <RecoilRoot>
+        <NavigationBarCommon />
+        <FurnitureLists />
+      </RecoilRoot>
     </div>
   );
 }

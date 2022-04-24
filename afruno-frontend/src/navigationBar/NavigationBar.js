@@ -10,22 +10,33 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import FurnitureLists from "../App";
 import axios from "axios";
-import React, { useEffect, useState, useRecoilState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
 
 const homeSearch = "http://localhost:3000";
 const homeSearchByFilterURL =
   "https://localhost:3000/getFurnituresByName&name=";
 var filterName = "";
+export var recoilTextSearchAtom = atom({
+  key: "recoilTextSearchAtomKey",
+  default: "",
+});
 function SearchBar() {
   const [searchText, setsearchText] = useState("Search");
-  const [filterName1, setfilterName1] = useRecoilState(filterNameState);
+  const [filterName1, setFilterName1] = useRecoilState(recoilTextSearchAtom);
 
   const triggerSearch = (searchTextValue) => {
     console.log("Search Text Value = " + searchTextValue.toLowerCase());
-    setsearchText(searchTextValue.toLowerCase());
     filterName = searchText;
-    setfilterName1((textValue) => {
-      filterName1 = textValue;
+    setFilterName1(() => {
+      console.log("FN : " + filterName1);
+      filterName1 = filterName;
     });
   };
   return (
@@ -35,9 +46,9 @@ function SearchBar() {
         placeholder={searchText}
         className="me-2"
         aria-label={searchText}
-        // onChange={(e) => {
-        //   setsearchText(e.target.value);
-        // }}
+        onChange={(e) => {
+          setsearchText(e.target.value);
+        }}
       />
       <Button
         variant="outline-success"
@@ -90,4 +101,5 @@ function NavigationBarCommon() {
     </div>
   );
 }
+// module.exports = recoilTextState;
 export default NavigationBarCommon;
