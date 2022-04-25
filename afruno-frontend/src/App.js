@@ -13,11 +13,11 @@ import NavigationBarCommon from "./navigationBar/NavigationBar";
 //http://localhost:8080/getFurnituresByName&name=Table
 // const getFurnitureUrl = "http://192.168.0.185/getFurnituresByName&name=Table";
 const getFurnitureUrl = "http://localhost:8080/getFurnitures";
-const getFurnitureUrlByName = "http://localhost:8080/getFurnituresByName&name=";
+const getFurnitureUrlByName = "http://localhost:8080/getFurnituresByName?name=";
 const furnitureTypeList = ["table", "chair", "sofa", "desk"];
 
 function FurnitureLists(props) {
-  var searchUrl = "";
+  let searchUrl = "";
   var filterFlag = false;
   console.log("XXXXXXXXXXX");
   if (
